@@ -2,6 +2,7 @@ export default {
     extends: [
         'stylelint-config-standard-scss',
         'stylelint-config-idiomatic-order',
+        'stylelint-config-recommended-vue',
     ],
     plugins: ['stylelint-order', 'stylelint-declaration-block-no-ignored-properties'],
     rules: {
