@@ -14,9 +14,11 @@
   "dependencies": {
     "@nuxt/eslint": "^0.3.9",
     "@pinia/nuxt": "^0.5.1",
+    "@types/uuid": "^9.0.8",
     "nuxt": "^3.11.2",
     "pinia": "^2.1.7",
     "reset-css": "^5.0.2",
+    "uuid": "^9.0.1",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },

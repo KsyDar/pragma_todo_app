@@ -2,15 +2,17 @@
   <section class="login">
     <h1 class="login__title">Login</h1>
     <form class="form" method="post" @submit.prevent="loginAction">
-      <input v-model="username" class="form__input" type="text" placeholder="Username">
-      <input v-model="password" class="form__input" type="password" placeholder="Password">
-      <button type="submit" class="form__button">Login</button>
+      <UIInput v-model="username" type="text" placeholder="Username" class="form__input" />
+      <UIInput v-model="password" type="password" placeholder="Password" class="form__input"/>
+      <UIButton class="form__button" type="submit">Login</UIButton>
     </form>
   </section>
 </template>
 
 <script setup lang="ts">
 import {useUserStore} from "~/store/user.store";
+import UIButton from "~/components/ui/UIButton/UIButton.vue";
+import UIInput from "~/components/ui/UIInput/UIInput.vue";
 
 definePageMeta({
   layout: 'auth'
@@ -22,8 +24,8 @@ const router = useRouter()
 
 const loginAction = async () => {
   const result = await userStore.login(username.value, password.value)
-  if(!result.isError) {
-   await router.push("/")
+  if (!result.isError) {
+    await router.push("/")
   }
 }
 </script>
@@ -31,13 +33,17 @@ const loginAction = async () => {
 <style lang="scss">
 .login {
   display: flex;
-  width: 300px;
-  height: 300px;
+  min-width: 300px;
   flex-direction: column;
+  padding: 1.6rem;
+  border: 1px solid #d0d7deb3;
+  border-radius:6px;
   margin: auto;
+  background-color: #f6f8fa;
+  font-size: 14px;
 
   &__title {
-    margin-bottom: .6rem;
+    margin-bottom: 1.6rem;
     color: black;
     font-size: 2rem;
     font-weight: 500;
@@ -51,53 +57,11 @@ const loginAction = async () => {
   align-items: center;
 
   &__input {
-    width: 100%;
-    padding: 1rem;
-    border: 1px solid rgb(0 0 0 / 30%);
-    border-radius: .4rem;
-    margin-bottom: 1rem;
-    color: black;
-    font-size: 1.3rem;
-    transition: border-color .5s ease;
-
-    &:focus {
-      border-color: rgb(0 0 0 / 80%);
-    }
+    margin-bottom: 1.6rem;
   }
 
   &__button {
-    display: inline-block;
-    padding: 1rem 1.2rem;
-    border-width: 0;
-    border-radius: 8px;
-    margin: 0;
-    background-color: #298e46;
-    color: white;
-    cursor: pointer;
-    font-size: 1.4rem;
-    font-weight: 500;
-    transition: all 200ms;
-
-    &:hover {
-      background-color: #2c974b;
-    }
-
-    &:focus {
-      box-shadow: rgb(46 164 79 / 40%) 0 0 0 3px;
-      outline: none;
-    }
-
-    &:disabled {
-      border-color: rgb(27 31 35 / 10%);
-      background-color: #94d3a2;
-      color: rgb(255 255 255 / 80%);
-      cursor: default;
-    }
-
-    &:focus:not(:focus-visible, .focus-visible) {
-      box-shadow: none;
-      outline: none;
-    }
+    width: 100%;
   }
 }
 

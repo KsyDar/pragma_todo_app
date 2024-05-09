@@ -11,6 +11,10 @@ body, html, #__nuxt {
 }
 
 /* stylelint-enable */
+body {
+  overflow: hidden;
+}
+
 * {
   box-sizing: border-box;
   outline: none;

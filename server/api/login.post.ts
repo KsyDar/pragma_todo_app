@@ -4,8 +4,8 @@ import type {ServerUser} from "~/types/serverUser";
 
 const users: ServerUser[] = [
   {
-    login: "user@user.com",
-    password: "12345",
+    login: "1",
+    password: "1",
     role: UserRole.User
   },
   {

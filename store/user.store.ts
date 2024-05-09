@@ -28,8 +28,15 @@ export const useUserStore = defineStore("user", () => {
       return { isError: true }
     }
   }
+
+  const logout = () => {
+    userCookie.value = null
+    user.value = null
+  }
+
   return {
     login,
+    logout,
     user
   }
 })

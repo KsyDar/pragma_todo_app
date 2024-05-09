@@ -1,13 +1,11 @@
 <template>
-  <header>
-    <h1>Header</h1>
-  </header>
-  <main>
+  <PageHeader/>
+  <main class="main">
     <slot/>
   </main>
 </template>
 
 <script setup lang="ts">
-
+import PageHeader from '~/components/layout/PageHeader.vue';
 </script>
 
