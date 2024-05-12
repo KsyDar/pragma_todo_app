@@ -5,8 +5,13 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
     '@nuxtjs/stylelint-module',
-    '@pinia/nuxt'
+    '@pinia/nuxt',
+    'nuxt-mdi'
   ],
+  mdi: {
+    cache: 'localStorage',
+    defaultSize: '2rem'
+  },
   stylelint: {
     include: "**/*.(scss)"
   },

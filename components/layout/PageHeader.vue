@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <h1 class="header__title">To Do App</h1>
-    <UIButton class="header__button" @click="logout">Logout</UIButton>
+    <UIButton @click="logout">Logout</UIButton>
   </header>
 </template>
 
@@ -31,10 +31,6 @@ const logout = async () => {
   &__title {
     font-size: 1.8rem;
     font-weight: 600;
-  }
-
-  &__button {
-    padding: 0.6rem 1.2rem;
   }
 }
 </style>

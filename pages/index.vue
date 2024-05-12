@@ -1,10 +1,5 @@
 <template>
   <section>
-    <h1>Tasks</h1>
-    <ul class="tasks-list">
-      <TaskCard v-for="task of paginatedTasks" :key="task.id" :task="task" />
-    </ul>
-
     <div>
       <div>
         total: {{ taskStore.tasks.length }}
@@ -19,6 +14,11 @@
       </div>
     </div>
 
+    <TaskSorting class="tasks__select" @sort="sort"/>
+
+    <ul class="tasks__list">
+      <TaskCard v-for="task of paginatedTasks" :key="task.id" :task="task"/>
+    </ul>
   </section>
 
 </template>
@@ -29,6 +29,7 @@ import {useOffsetPagination} from "@vueuse/core";
 import type {Task} from "~/types/task";
 import UIButton from "~/components/ui/UIButton/UIButton.vue";
 import TaskCard from "~/components/tasks/TaskCard.vue";
+import TaskSorting from "~/components/tasks/TaskSorting.vue";
 
 const taskStore = useTaskStore()
 await taskStore.fetchToDos()
@@ -37,14 +38,8 @@ const paginatedTasks = ref<Task[]>([])
 const page = ref(1)
 const pageSize = ref(3)
 
-function localPaginatedFetch(page: number, pageSize: number) {
-  const start = (page - 1) * pageSize
-  const end = start + pageSize
-  return taskStore.tasks.slice(start, end)
-}
-
 const fetchLocalPaginatedData = ({currentPage, currentPageSize}: { currentPage: number, currentPageSize: number }) => {
-  paginatedTasks.value = localPaginatedFetch(currentPage, currentPageSize)
+  paginatedTasks.value = taskStore.localPaginatedFetch(currentPage, currentPageSize)
 }
 
 fetchLocalPaginatedData({
@@ -58,17 +53,36 @@ const {
   prev,
   next,
 } = useOffsetPagination({
-  total: taskStore.tasks.length,
+  total: computed(() => taskStore.tasks.length),
   page: page,
   pageSize: pageSize,
   onPageChange: fetchLocalPaginatedData,
   onPageSizeChange: fetchLocalPaginatedData,
 })
+
+const sort = (method: (a: Task, b: Task) => number) => {
+  taskStore.sortTasks(method)
+  page.value = 1
+  fetchLocalPaginatedData({
+    currentPage: page.value,
+    currentPageSize: pageSize.value,
+  })
+}
 </script>
 
 <style lang="scss">
-.tasks-list {
-  padding: 2.4rem;
+
+.tasks {
+  &__list {
+    padding: 2.4rem;
+  }
+
+  &__select {
+    max-width: 400px;
+    margin-top: 1.2rem;
+  }
 }
+
+
 </style>
 

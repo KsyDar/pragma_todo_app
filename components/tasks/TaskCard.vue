@@ -37,11 +37,11 @@ $cardPadding: 1.2rem;
   padding: $cardPadding;
 
   &__header {
-    font-size: $cardPadding * 2;
+    font-size: calc($cardPadding * 2);
   }
 
   &__description {
-    margin-top: $cardPadding / 2;
+    margin-top: calc($cardPadding / 2);
 
     &-bold {
       font-weight: 700;
@@ -51,8 +51,8 @@ $cardPadding: 1.2rem;
 
   &__status {
     position: absolute;
-    top: $cardPadding / 2;
-    left: -($cardPadding / 2);
+    top: calc($cardPadding / 2);
+    left: calc(-1 * ($cardPadding / 2));
     width: 6px;
     height: calc(100% - $cardPadding);
     border-radius: 15%;

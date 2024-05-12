@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<ButtonProps>(), {
 <style lang="scss">
 .ui-button {
   display: inline-block;
-  padding: 1rem 1.2rem;
+  padding: 0.6rem 1.2rem;
   border-width: 0;
   border-radius: 8px;
   margin: 0;

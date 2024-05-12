@@ -12,8 +12,20 @@ export const useTaskStore = defineStore("tasks", () => {
     }
   }
 
+  function localPaginatedFetch(page: number, pageSize: number) {
+    const start = (page - 1) * pageSize
+    const end = start + pageSize
+    return tasks.value.slice(start, end)
+  }
+
+  function sortTasks(method: (a: Task, b: Task) => number) {
+    tasks.value = tasks.value.sort(method)
+  }
+
   return {
     tasks,
-    fetchToDos
+    fetchToDos,
+    sortTasks,
+    localPaginatedFetch
   }
 })
