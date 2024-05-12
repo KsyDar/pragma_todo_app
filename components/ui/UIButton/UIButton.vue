@@ -1,5 +1,5 @@
 <template>
-  <button :type="props.type" class="ui-button">
+  <button :type="props.type" class="ui-button" :disabled="props.disabled">
     <slot/>
   </button>
 </template>
@@ -10,7 +10,8 @@ import type {ButtonProps} from "~/components/ui/UIButton/types/ButtonProps";
 defineOptions({name: 'UIButton'})
 
 const props = withDefaults(defineProps<ButtonProps>(), {
-  type: 'button'
+  type: 'button',
+  disabled: false
 })
 </script>
 
