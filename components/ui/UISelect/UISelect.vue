@@ -3,26 +3,26 @@
     <div class="ui-select" @click="toggleList">
       <slot name="text">
         <input
-          v-model="value"
-          class="ui-select__input"
-          readonly
-          :placeholder="props.placeholder"
-          @blur="handleBlur($event)"
-        />
+            v-model="value"
+            class="ui-select__input"
+            readonly
+            :placeholder="props.placeholder"
+            @blur="handleBlur($event)"
+        >
       </slot>
       <ChevronDown
-        class="ui-select__icon"
-        :class="{ 'ui-select__icon_reverted': isShowList }"
+          class="ui-select__icon"
+          :class="{ 'ui-select__icon_reverted': isShowList }"
       />
     </div>
     <Transition name="close">
       <ul v-if="isShowList" class="ui-select__list">
         <li
-          v-for="item of items"
-          :key="item"
-          :class="{ 'ui-select__list-item_selected': isSelectedItem(item) }"
-          class="ui-select__list-item"
-          @click.self="selectItem(item)"
+            v-for="item of items"
+            :key="item"
+            :class="{ 'ui-select__list-item_selected': isSelectedItem(item) }"
+            class="ui-select__list-item"
+            @click.self="selectItem(item)"
         >
           {{ item }}
         </li>
@@ -32,10 +32,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { useField } from "vee-validate";
-import { onClickOutside } from "@vueuse/core";
-import type { SelectProps } from "~/components/ui/UISelect/types/SelectProps";
+import {ref} from "vue";
+import {useField} from "vee-validate";
+import {onClickOutside} from "@vueuse/core";
+import type {SelectProps} from "~/components/ui/UISelect/types/SelectProps";
 import ChevronDown from "vue-material-design-icons/ChevronDown.vue";
 
 const target = ref(null);
@@ -60,7 +60,7 @@ const isShowList = ref(false);
  */
 const isSelectedItem = (item: string) => item === value.value;
 
-const { value, handleBlur, handleChange } = useField(props.name, undefined, {
+const {value, handleBlur, handleChange} = useField(props.name, undefined, {
   initialValue: props.modelValue,
 });
 
@@ -85,6 +85,8 @@ const hideList = () => {
 </script>
 
 <style lang="scss">
+@use 'assets/variables/colors' as *;
+
 .ui-select {
   &-wrapper {
     position: relative;
@@ -93,9 +95,9 @@ const hideList = () => {
   display: flex;
   align-items: center;
   padding: 1.5rem 1.2rem;
-  border: 0.1rem solid rgb(158 161 202 / 35%);
+  border: 0.1rem solid $borderColor;
   border-radius: 0.8rem;
-  background-color: #fff;
+  background-color: $secondaryMainColor;
   cursor: pointer;
   font-size: 1.4rem;
   line-height: 1.6rem;
@@ -113,12 +115,12 @@ const hideList = () => {
     width: 100%;
     border: none;
     background-color: transparent;
-    color: black;
+    color: $accentColor;
     cursor: pointer;
     font-weight: 500;
 
     &::placeholder {
-      color: black;
+      color: $accentColor;
     }
   }
 
@@ -131,12 +133,12 @@ const hideList = () => {
     padding: 1.5rem;
     border: 0.1rem solid rgb(158 161 202 / 35%);
     border-radius: 0.8rem;
-    background-color: white;
+    background-color: $secondaryMainColor;
     list-style: none;
     overflow-x: auto;
 
     &-item {
-      color: black;
+      color: $accentColor;
       cursor: pointer;
       font-size: 1.4rem;
       line-height: 1.6rem;
@@ -160,9 +162,8 @@ const hideList = () => {
 .close {
   &-enter-active,
   &-leave-active {
-    transition:
-      opacity 0.25s ease,
-      top 0.25s ease;
+    transition: opacity 0.25s ease,
+    top 0.25s ease;
   }
 
   &-enter-from,

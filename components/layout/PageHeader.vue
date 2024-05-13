@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import UIButton from "~/components/ui/UIButton/UIButton.vue";
-import { useUserStore } from "~/store/user.store";
+import {useUserStore} from "~/store/user.store";
 
 const userStore = useUserStore();
 const router = useRouter();
@@ -21,6 +21,8 @@ const logout = async () => {
 </script>
 
 <style lang="scss">
+@use 'assets/variables/colors' as *;
+
 .header {
   display: flex;
   width: 100%;
@@ -28,8 +30,8 @@ const logout = async () => {
   align-items: center;
   justify-content: space-between;
   padding: 2rem;
-  background-color: #f6f8fa;
-  box-shadow: inset 0 calc(max(1px, 0.0625rem) * -1) #d0d7de;
+  background-color: $primaryMainColor;
+  box-shadow: inset 0 calc(max(1px, 0.0625rem) * -1) $shadowColor;
 
   &__title {
     font-size: 2.4rem;

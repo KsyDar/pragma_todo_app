@@ -81,10 +81,6 @@ watch(() => props.currentPage, val => {
   &__page {
     font-size: 2.4rem;
     transition: color 0.3s ease-in-out;
-
-    &_selected {
-      color: #298e46;
-    }
   }
 }
 </style>

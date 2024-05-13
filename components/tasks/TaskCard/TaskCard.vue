@@ -50,7 +50,9 @@
   <div v-else class="task-card">
     <div class="task-card__header">
       <h4 class="task-card__title">{{ props.task.name }}</h4>
-      <UIButton v-if="userStore.user?.role === UserRole.Admin" transparent @click="emits('change-mode', TaskCardModes.Edit)">
+      <UIButton
+v-if="userStore.user?.role === UserRole.Admin" transparent
+                @click="emits('change-mode', TaskCardModes.Edit)">
         <Pencil class="task-card__icon"/>
       </UIButton>
     </div>
@@ -159,6 +161,8 @@ const save = (values: FormValueType) => {
 </script>
 
 <style lang="scss">
+@use 'assets/variables/colors' as *;
+
 $cardPadding: 1.2rem;
 
 .task-card {
@@ -218,11 +222,11 @@ $cardPadding: 1.2rem;
     border-radius: 15%;
 
     &_done {
-      background: green;
+      background: $doneColor;
     }
 
     &_not-done {
-      background: red;
+      background: $notDoneColor;
     }
   }
 }

@@ -1,17 +1,17 @@
 <template>
   <button
-    :type="props.type"
-    :class="['ui-button', { 'ui-button_transparent': props.transparent }]"
-    :disabled="props.disabled"
+      :type="props.type"
+      :class="['ui-button', { 'ui-button_transparent': props.transparent }]"
+      :disabled="props.disabled"
   >
-    <slot />
+    <slot/>
   </button>
 </template>
 
 <script setup lang="ts">
-import type { ButtonProps } from "~/components/ui/UIButton/types/ButtonProps";
+import type {ButtonProps} from "~/components/ui/UIButton/types/ButtonProps";
 
-defineOptions({ name: "UIButton" });
+defineOptions({name: "UIButton"});
 
 const props = withDefaults(defineProps<ButtonProps>(), {
   type: "button",
@@ -20,6 +20,8 @@ const props = withDefaults(defineProps<ButtonProps>(), {
 </script>
 
 <style scoped lang="scss">
+@use 'assets/variables/colors' as *;
+
 .ui-button {
   display: inline-block;
   padding: 0.6rem 1.2rem;
@@ -32,40 +34,40 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   transition: all 200ms;
 
   &.ui-button_transparent {
-    background-color: white;
-    color: #298e46;
+    background-color: $secondaryMainColor;
+    color: $buttonColor;
   }
 
   &:not(.ui-button_transparent) {
-    background-color: #298e46;
-    color: white;
+    background-color: $buttonColor;
+    color: $secondaryMainColor;
   }
 
   &:disabled {
-    border-color: rgb(27 31 35 / 10%);
+    border-color: $borderColor;
     cursor: default;
   }
 
   &.ui-button_transparent:disabled {
-    color: #94d3a2;
+    color: $disabledColor;
   }
 
   &:not(.ui-button_transparent):disabled {
-    background-color: #94d3a2;
+    background-color: $disabledColor;
     color: rgb(255 255 255 / 80%);
   }
 
   &:focus:not(:disabled) {
-    box-shadow: rgb(46 164 79 / 40%) 0 0 0 3px;
+    box-shadow: $focusColor 0 0 0 3px;
     outline: none;
   }
 
   &.ui-button_transparent:not(:disabled):hover {
-    background-color: #f6f8fa;
+    background-color: $primaryMainColor;
   }
 
   &:not(.ui-button_transparent, :disabled):hover {
-    background-color: #2c974b;
+    background-color: $hoverColor;
   }
 
   &:focus:not(:focus-visible, .focus-visible) {

@@ -30,7 +30,3 @@ const change = (event: Event) => {
   handleChange(event);
 };
 </script>
-
-<style scoped lang="scss">
-
-</style>

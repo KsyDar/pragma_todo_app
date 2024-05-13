@@ -74,15 +74,17 @@ const loginAction = async (values: FormValueType) => {
 </script>
 
 <style lang="scss">
+@use 'assets/variables/colors' as *;
+
 .login {
   display: flex;
   min-width: 300px;
   flex-direction: column;
   padding: 1.6rem;
-  border: 1px solid #d0d7deb3;
+  border: 1px solid $shadowColor;
   border-radius: 6px;
   margin: auto;
-  background-color: #f6f8fa;
+  background-color: $primaryMainColor;
   font-size: 14px;
 
   &__title {

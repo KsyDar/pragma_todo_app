@@ -73,3 +73,15 @@ bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+## Authorization
+
+### 1. user:
+login: user@user.com
+
+password: 12345
+
+### 2. admin:
+login: admin@admin.com
+
+password: 67890
