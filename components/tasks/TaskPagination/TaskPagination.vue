@@ -34,7 +34,9 @@ defineOptions({name: "TaskPagination"});
 const props = defineProps<TaskPaginationProps>();
 const emits = defineEmits<TaskPaginationEmits>();
 
+/** Порядковый номер первой задачи на странице */
 const startTaskNumber = ref(1)
+/** Порядковый номер последней задачи на странице */
 const endTaskNumber = computed(() => {
   if (props.isLastPage) {
     return props.total
@@ -42,11 +44,16 @@ const endTaskNumber = computed(() => {
   return startTaskNumber.value + 2
 })
 
+/**
+ * Переход на предыдущую страницу
+ */
 const prev = () => {
   emits('prev')
   startTaskNumber.value = props.isFirstPage ? 1 : startTaskNumber.value - 3
 }
-
+/**
+ * Переход на следующую страницу
+ */
 const next = () => {
   emits('next')
   startTaskNumber.value = props.isLastPage ? props.total : startTaskNumber.value + 3

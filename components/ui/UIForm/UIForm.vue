@@ -26,14 +26,13 @@ const emits = defineEmits<FormEmits<T>>();
 
 const form = useForm<T>({
   validationSchema: props.validationSchema,
-  validateOnMount: props.validateOnMount,
-  initialTouched: props.initialTouched,
-  initialErrors: props.initialErrors,
   initialValues: props.initialValues,
-  keepValuesOnUnmount: props.keepValues,
 });
 defineExpose({ form });
 
+/**
+ * Отправка формы
+ */
 const submit = form.handleSubmit(
   (values) => {
     emits("submit", values);

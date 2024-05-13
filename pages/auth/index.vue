@@ -2,30 +2,31 @@
   <section class="login">
     <h1 class="login__title">Login</h1>
     <UIForm
-      method="post"
-      :validation-schema="validationSchema"
-      class="login__form"
-      @submit="loginAction"
+        method="post"
+        :validation-schema="validationSchema"
+        class="login__form"
+        @submit="loginAction"
     >
       <template #inputs>
         <UIInput
-          name="username"
-          type="text"
-          placeholder="Username"
-          label="Username"
-          class="login__form-input"
+            name="username"
+            type="text"
+            placeholder="Username"
+            label="Username"
+            class="login__form-input"
         />
         <UIInput
-          name="password"
-          type="password"
-          placeholder="Password"
-          label="Password"
-          class="login__form-input"
+            name="password"
+            type="password"
+            placeholder="Password"
+            label="Password"
+            class="login__form-input"
         />
       </template>
       <template #buttons="{ isValid }">
         <UIButton class="login__form-button" type="submit" :disabled="!isValid"
-          >Login</UIButton
+        >Login
+        </UIButton
         >
       </template>
     </UIForm>
@@ -33,33 +34,38 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from "~/store/user.store";
+import {useUserStore} from "~/store/user.store";
 import UIButton from "~/components/ui/UIButton/UIButton.vue";
 import UIInput from "~/components/ui/UIInput/UIInput.vue";
 import UIForm from "~/components/ui/UIForm/UIForm.vue";
-import { toTypedSchema } from "@vee-validate/zod";
-import { object, string } from "zod";
-import type { GetGenericType } from "~/types/getGenericType";
+import {toTypedSchema} from "@vee-validate/zod";
+import {object, string} from "zod";
+import type {GetGenericType} from "~/types/getGenericType";
+
+const userStore = useUserStore();
+const router = useRouter();
 
 definePageMeta({
   layout: "auth",
 });
-const userStore = useUserStore();
-const router = useRouter();
 
+/** Схема валидации */
 const validationSchema = toTypedSchema(
-  object({
-    username: string().min(1),
-    password: string().min(1),
-  }),
+    object({
+      username: string().min(1),
+      password: string().min(1),
+    }),
 );
-
+/** Тип полей формы */
 type FormValueType = GetGenericType<typeof validationSchema>;
-
+/**
+ * Авторизация
+ * @param values - поля формы
+ */
 const loginAction = async (values: FormValueType) => {
   const result = await userStore.login(
-    values.username || "",
-    values.password || "",
+      values.username || "",
+      values.password || "",
   );
   if (!result.isError) {
     await router.push("/");

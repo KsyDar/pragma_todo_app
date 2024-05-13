@@ -11,7 +11,9 @@ import { useUserStore } from "~/store/user.store";
 
 const userStore = useUserStore();
 const router = useRouter();
-
+/**
+ * Выход из аккаунта
+ */
 const logout = async () => {
   userStore.logout();
   await router.push("/auth");

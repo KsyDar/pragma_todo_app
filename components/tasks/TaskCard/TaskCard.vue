@@ -128,8 +128,9 @@ watch(
     },
     {immediate: true},
 );
-
+/** Форма */
 const form = ref<FormRef<FormValueType>>();
+/** Схема валидации */
 const validationSchema = toTypedSchema(
     object({
       name: string().min(3).max(25),
@@ -138,9 +139,12 @@ const validationSchema = toTypedSchema(
       status: optional(nativeEnum(TaskStatus)),
     }),
 );
-
+/** Тип полей формы */
 type FormValueType = GetGenericType<typeof validationSchema>;
-
+/**
+ * Сохранение задачи
+ * @param values - поля формы (данные задачи)
+ */
 const save = (values: FormValueType) => {
   const newTask: Task = {
     id: props.task?.id ?? v4(),

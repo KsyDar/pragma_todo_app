@@ -9,7 +9,6 @@ export default defineNuxtConfig({
     "@vee-validate/nuxt",
   ],
   veeValidate: {
-    // disable or enable auto imports
     autoImports: true,
   },
   stylelint: {

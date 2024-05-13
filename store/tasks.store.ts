@@ -1,12 +1,18 @@
 import type { Task } from "~/types/task";
 
+/** Тип функции сортировки */
 type SortFuncType = (a: Task, b: Task) => number;
 
 export const useTaskStore = defineStore("tasks", () => {
+  /** Список задач */
   const tasks = ref<Task[]>([]);
+  /** Последний вызванный метод сортировки */
   let lastSortMethod: SortFuncType | null = null;
 
-  const fetchToDos = async () => {
+  /**
+   * Получение списка задач
+   */
+  const fetchTasks = async () => {
     const { data } = await useFetch<Task[]>("/api/tasks", {
       method: "GET",
     });
@@ -15,23 +21,39 @@ export const useTaskStore = defineStore("tasks", () => {
     }
   };
 
+  /**
+   * Пагинация
+   * @param page - страница
+   * @param pageSize - кол-во элементов на странице
+   */
   function localPaginatedFetch(page: number, pageSize: number) {
     const start = (page - 1) * pageSize;
     const end = start + pageSize;
     return tasks.value.slice(start, end);
   }
 
+  /**
+   * Сортировка
+   * @param method - метод сортировки
+   */
   function sortTasks(method: SortFuncType) {
     lastSortMethod = method;
     tasks.value = tasks.value.sort(lastSortMethod);
   }
 
+  /**
+   * Сортировка при наличии последнего выбранного метода
+   */
   function sortIfNeeded() {
     if (lastSortMethod) {
       tasks.value = tasks.value.sort(lastSortMethod);
     }
   }
 
+  /**
+   * Добавление задачи
+   * @param task - задача
+   */
   function addNewTask(task: Task) {
     $fetch("/api/tasks", {
       method: "POST",
@@ -47,6 +69,10 @@ export const useTaskStore = defineStore("tasks", () => {
     sortIfNeeded();
   }
 
+  /**
+   * Изменение задачи
+   * @param task - задача
+   */
   function editTask(task: Task) {
     $fetch(`/api/tasks/${task.id}`, {
       method: "PUT",
@@ -66,7 +92,7 @@ export const useTaskStore = defineStore("tasks", () => {
 
   return {
     tasks,
-    fetchToDos,
+    fetchToDos: fetchTasks,
     sortTasks,
     localPaginatedFetch,
     addNewTask,

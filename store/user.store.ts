@@ -1,13 +1,19 @@
 import type { User } from "~/types/user";
 
 export const useUserStore = defineStore("user", () => {
+  /** Пользователь из куки */
   const userCookie = useCookie<User | null>("user");
+  /** Пользователь */
   const user = ref<User | null>(null);
 
   if (userCookie.value) {
     user.value = userCookie.value;
   }
-
+  /**
+   * Авторизация
+   * @param username - логин
+   * @param password - пароль
+   */
   const login = async (
     username: string,
     password: string,
@@ -32,7 +38,9 @@ export const useUserStore = defineStore("user", () => {
       return { isError: true };
     }
   };
-
+  /**
+   * Выход из профиля
+   */
   const logout = () => {
     userCookie.value = null;
     user.value = null;

@@ -28,7 +28,10 @@ const { value, errorMessage, handleBlur, handleChange } = useField<string>(
   props.name,
   undefined,
 );
-
+/**
+ * Изменение значения поля
+ * @param event - событие
+ */
 const change = (event: Event) => {
   handleChange(event);
 };

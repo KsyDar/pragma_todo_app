@@ -42,10 +42,18 @@ import { TaskCardModes } from "~/components/tasks/TaskCard/types/TaskCardModes";
 const taskStore = useTaskStore();
 await taskStore.fetchToDos();
 
+/** Задачи на текущей странице */
 const paginatedTasks = ref<Task[]>([]);
+/** Текущая страница */
 const page = ref(1);
+/** Кол-во элементов на странице */
 const pageSize = ref(3);
 
+/**
+ * Получение новой страницы задач
+ * @param currentPage - страница
+ * @param currentPageSize - кол-во элементов на странице
+ */
 const fetchLocalPaginatedData = ({
   currentPage,
   currentPageSize,
@@ -73,6 +81,10 @@ const { isFirstPage, isLastPage, currentPage, pageCount, prev, next } =
     onPageSizeChange: fetchLocalPaginatedData,
   });
 
+/**
+ * Сортировка задач
+ * @param method - выбранный метод
+ */
 const sort = (method: (a: Task, b: Task) => number) => {
   taskStore.sortTasks(method);
   page.value = 1;
@@ -81,7 +93,10 @@ const sort = (method: (a: Task, b: Task) => number) => {
     currentPageSize: pageSize.value,
   });
 };
-
+/**
+ * Создание новой задачи
+ * @param task - задача
+ */
 const createNewTask = (task: Task) => {
   taskStore.addNewTask(task);
 
@@ -90,7 +105,10 @@ const createNewTask = (task: Task) => {
     currentPageSize: pageSize.value,
   });
 };
-
+/**
+ * Изменение задачи
+ * @param task - задача
+ */
 const changeTask = (task: Task) => {
   taskStore.editTask(task);
   currentEditTaskId.value = null;
@@ -99,8 +117,13 @@ const changeTask = (task: Task) => {
     currentPageSize: pageSize.value,
   });
 };
-
+/** ИД редактируемой задачи */
 const currentEditTaskId = ref<string | null>(null);
+/**
+ * Изменение состояния карточки задачи
+ * @param mode - состояние
+ * @param taskId - ИД задачи
+ */
 const changeMode = (mode: TaskCardModes, taskId: Task["id"]) => {
   if (mode === TaskCardModes.Edit) {
     currentEditTaskId.value = taskId;

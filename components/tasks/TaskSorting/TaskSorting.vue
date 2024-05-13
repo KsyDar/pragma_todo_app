@@ -16,6 +16,7 @@ defineOptions({ name: "TaskSorting" });
 
 const emits = defineEmits<TaskSortingEmits>();
 
+/** Варианты сортировки */
 const sortingItems = [
   "Name (ASC)",
   "Name (DESC)",
@@ -24,6 +25,7 @@ const sortingItems = [
   "Status (ASC)",
   "Status (DESC)",
 ];
+/** Методы сортировки  */
 const sortingMethods: Record<string, (a: Task, b: Task) => number> = {
   "Name (ASC)": (a: Task, b: Task) => (a.name > b.name ? 1 : -1),
   "Name (DESC)": (a: Task, b: Task) => (a.name > b.name ? -1 : 1),
@@ -32,6 +34,7 @@ const sortingMethods: Record<string, (a: Task, b: Task) => number> = {
   "Status (ASC)": (a: Task, b: Task) => a.status - b.status,
   "Status (DESC)": (a: Task, b: Task) => b.status - a.status,
 };
+/** Выбранный метод сортировки */
 const selectedSortingMethod = ref<string>("Name (ASC)");
 
 watch(

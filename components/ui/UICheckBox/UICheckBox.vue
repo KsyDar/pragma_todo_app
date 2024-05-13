@@ -22,7 +22,10 @@ const {value, handleBlur, handleChange} = useField<TaskStatus>(
       type: 'checkbox',
     }
 );
-
+/**
+ * Изменение значения чекбокса
+ * @param event - событие
+ */
 const change = (event: Event) => {
   handleChange(event);
 };
