@@ -1,12 +1,12 @@
-import {useUserStore} from "~/store/user.store";
+import { useUserStore } from "~/store/user.store";
 
 export default defineNuxtRouteMiddleware((to) => {
-  const userStore = useUserStore()
-  if(!userStore.user && to.path !== "/auth") {
-    return navigateTo("/auth")
+  const userStore = useUserStore();
+  if (!userStore.user && to.path !== "/auth") {
+    return navigateTo("/auth");
   }
 
-  if(userStore.user && to.path === "/auth") {
-    return navigateTo("/")
+  if (userStore.user && to.path === "/auth") {
+    return navigateTo("/");
   }
-})
+});

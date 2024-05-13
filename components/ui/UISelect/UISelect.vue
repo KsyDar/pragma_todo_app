@@ -1,26 +1,28 @@
 <template>
-  <div ref="target" class="select-wrapper">
-    <div class="select" @click="toggleList">
+  <div ref="target" class="ui-select-wrapper">
+    <div class="ui-select" @click="toggleList">
       <slot name="text">
         <input
-            v-model="value"
-            class="select__input"
-            readonly
-            :placeholder="props.placeholder"
-            @blur="handleBlur($event)"
-        >
+          v-model="value"
+          class="ui-select__input"
+          readonly
+          :placeholder="props.placeholder"
+          @blur="handleBlur($event)"
+        />
       </slot>
-      <MdiIcon icon="mdiChevronDown" class="select__icon" :flip-y="isShowList"
+      <ChevronDown
+        class="ui-select__icon"
+        :class="{ 'ui-select__icon_reverted': isShowList }"
       />
     </div>
     <Transition name="close">
-      <ul v-if="isShowList" class="select__list">
+      <ul v-if="isShowList" class="ui-select__list">
         <li
-            v-for="item of items"
-            :key="item"
-            :class="{ 'select__list-item_selected': isSelectedItem(item) }"
-            class="select__list-item"
-            @click.self="selectItem(item)"
+          v-for="item of items"
+          :key="item"
+          :class="{ 'ui-select__list-item_selected': isSelectedItem(item) }"
+          class="ui-select__list-item"
+          @click.self="selectItem(item)"
         >
           {{ item }}
         </li>
@@ -30,69 +32,60 @@
 </template>
 
 <script setup lang="ts">
-import { ref} from 'vue'
-import { useField } from 'vee-validate'
-import { onClickOutside } from '@vueuse/core'
+import { ref } from "vue";
+import { useField } from "vee-validate";
+import { onClickOutside } from "@vueuse/core";
+import type { SelectProps } from "~/components/ui/UISelect/types/SelectProps";
+import ChevronDown from "vue-material-design-icons/ChevronDown.vue";
 
-const target = ref(null)
+const target = ref(null);
 
-onClickOutside(target, _ => hideList())
-
-export type SelectProps = {
-  /** Список значений */
-  items: Array<string>
-  /** Плейсхолдер */
-  placeholder?: string
-  /** */
-  modelValue?: string
-  /** Имя поля */
-  name: string
-}
+onClickOutside(target, (_) => hideList());
 
 defineOptions({
-  name: 'UISelect',
-})
+  name: "UISelect",
+});
 
 const props = withDefaults(defineProps<SelectProps>(), {
-  placeholder: 'Выберите значение',
-})
+  placeholder: "Выберите значение",
+});
 
-const selected = defineModel<string>()
+const selected = defineModel<string>();
 
 /** Показывать список значений */
-const isShowList = ref(false)
+const isShowList = ref(false);
 
 /** Является ли переданное значение выбранным
  *  @param item Значение из списка
  */
-const isSelectedItem = (item: string) => item === value.value
+const isSelectedItem = (item: string) => item === value.value;
 
 const { value, handleBlur, handleChange } = useField(props.name, undefined, {
   initialValue: props.modelValue,
-})
+});
 
 /** Выбрать значение
  *  @param item Значение из списка
  */
 const selectItem = (item: string) => {
-  isShowList.value = false
-  handleChange(item)
-  selected.value = item
-}
+  isShowList.value = false;
+  handleChange(item);
+  selected.value = item;
+};
 
 /** Показать/скрыть список значений */
 const toggleList = () => {
-  isShowList.value = !isShowList.value
-}
+  isShowList.value = !isShowList.value;
+};
 
 /** Скрыть список значений */
 const hideList = () => {
-  isShowList.value = false
-}
+  isShowList.value = false;
+};
 </script>
 
 <style lang="scss">
-.select {
+.ui-select {
   &-wrapper {
     position: relative;
   }
@@ -109,7 +102,11 @@ const hideList = () => {
 
   &__icon {
     margin-left: auto;
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.3s ease-in-out;
+
+    &_reverted {
+      transform: rotate(180deg);
+    }
   }
 
   &__input {
@@ -164,8 +161,8 @@ const hideList = () => {
   &-enter-active,
   &-leave-active {
     transition:
-        opacity 0.25s ease,
-        top 0.25s ease;
+      opacity 0.25s ease,
+      top 0.25s ease;
   }
 
   &-enter-from,
@@ -174,5 +171,4 @@ const hideList = () => {
     opacity: 0;
   }
 }
-
 </style>

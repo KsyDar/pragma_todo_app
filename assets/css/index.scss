@@ -5,12 +5,19 @@ html {
 }
 
 /* stylelint-disable */
-body, html, #__nuxt {
+body,
+html,
+#__nuxt {
   width: 100vw;
   height: 100vh;
 }
 
+#__nuxt {
+  display: flex;
+  flex-direction: column;
+}
 /* stylelint-enable */
+
 body {
   overflow: hidden;
 }
@@ -20,14 +27,18 @@ body {
   outline: none;
 }
 
-svg{
+svg {
+  width: 1em;
+  height: 1em;
   color: currentcolor;
 }
 
 .main {
   display: flex;
+  overflow: auto;
   width: 100%;
-  height: 100%;
   flex-direction: column;
+  flex-grow: 1;
+  padding: 2rem;
   font-size: 1.6rem;
 }

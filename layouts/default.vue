@@ -1,11 +1,10 @@
 <template>
-  <PageHeader/>
+  <PageHeader />
   <main class="main">
-    <slot/>
+    <slot />
   </main>
 </template>
 
 <script setup lang="ts">
-import PageHeader from '~/components/layout/PageHeader.vue';
+import PageHeader from "~/components/layout/PageHeader.vue";
 </script>
-

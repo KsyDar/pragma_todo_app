@@ -1,9 +1,9 @@
-import type {TaskStatus} from "~/types/taskStatus";
+import type { TaskStatus } from "~/types/taskStatus";
 
 export type Task = {
-  id: string
-  name: string
-  description: string
-  status: TaskStatus
-  email: string
-}
+  id: string;
+  name: string;
+  description: string;
+  status: TaskStatus;
+  email: string;
+};
